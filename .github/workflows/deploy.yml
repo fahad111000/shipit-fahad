@@ -22,7 +22,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.DEPLOY_HOST }}
-          username: deploy
+          username: ubuntu
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: "site/*,scripts/*"
           target: "/var/www/fahad/upload"
