@@ -22,7 +22,7 @@ find "$RELEASE_DIR" -name "*.html" -exec sed -i "s/__VERSION__/Commit: $COMMIT_H
 # 4. Current symlink ko naye release ki taraf point karna
 ln -sfn "$RELEASE_DIR" "$TEAM_DIR/current"
 
-# 5. deploys.log mein entry likhna
+# 5. deploys.log mein entry likhna //
 echo "Deployed commit $COMMIT_HASH by $AUTHOR at $TIMESTAMP" >> "$TEAM_DIR/deploys.log"
 
 # 6. Sirf 5 newest releases rakhna, baqi purani delete karna
