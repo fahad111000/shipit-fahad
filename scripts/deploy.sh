@@ -1,7 +1,6 @@
-cat << 'EOF' > .github/workflows/deploy.yml
 name: Deploy to Server
 
-'on':
+on:
   push:
     branches:
       - main
@@ -39,4 +38,3 @@ jobs:
             chmod +x upload/scripts/*.sh
             ./upload/scripts/deploy.sh "${{ github.sha }}" "${{ github.actor }}"
             rm -rf upload/*
-EOF
