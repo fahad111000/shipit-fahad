@@ -28,4 +28,7 @@ echo "Deployed commit $COMMIT_HASH by $AUTHOR at $TIMESTAMP" >> "$TEAM_DIR/deplo
 cd "$TEAM_DIR/releases"
 ls -t | tail -n +6 | xargs -I {} rm -rf {}
 
+chmod +x /var/www/fahad/scripts/status.sh
+/var/www/fahad/scripts/status.sh
+
 echo "Deployment completed successfully!"
