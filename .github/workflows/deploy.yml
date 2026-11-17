@@ -31,7 +31,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
-          username: deploy
+          username: ubuntu
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           script: |
             cd /var/www/fahad
