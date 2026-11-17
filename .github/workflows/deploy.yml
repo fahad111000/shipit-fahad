@@ -1,0 +1,41 @@
+cat << 'EOF' > .github/workflows/deploy.yml
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Site Checks
+        run: |
+          chmod +x scripts/check-site.sh
+          ./scripts/check-site.sh site
+
+      - name: Copy Files to Server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: deploy
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: "site/*,scripts/*"
+          target: "/var/www/fahad/upload"
+
+      - name: Run Deploy Script on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: deploy
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd /var/www/fahad
+            chmod +x upload/scripts/*.sh
+            ./upload/scripts/deploy.sh "${{ github.sha }}" "${{ github.actor }}"
+            rm -rf upload/*
+EOF

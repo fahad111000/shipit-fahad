@@ -1,0 +1,19 @@
+cat << 'EOF' > .github/workflows/check.yml
+name: Check Site
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Site Check Script
+        run: |
+          chmod +x scripts/check-site.sh
+          ./scripts/check-site.sh site
+EOF
